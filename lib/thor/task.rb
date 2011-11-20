@@ -34,8 +34,8 @@ class Thor
       if namespace
         namespace = klass.namespace
         formatted = "#{namespace.gsub(/^(default)/,'')}:"
-        formatted.sub!(/.$/, ' ') if subcommand
       end
+      formatted = "#{klass.namespace.split(':').last} " if subcommand
 
       formatted ||= ""
 
