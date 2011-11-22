@@ -212,13 +212,14 @@ class Thor
       # options<Hash>:: Described below.
       #
       # ==== Options
-      # :desc     - Description for the argument.
-      # :required - If the argument is required or not.
-      # :default  - Default value for this argument.
-      # :group    - The group for this options. Use by class options to output options in different levels.
-      # :aliases  - Aliases for this option.
-      # :type     - The type of the argument, can be :string, :hash, :array, :numeric or :boolean.
-      # :banner   - String to show on usage notes.
+      # :desc::     -- Description for the argument.
+      # :required:: -- If the argument is required or not.
+      # :default::  -- Default value for this argument.
+      # :group::    -- The group for this options. Use by class options to output options in different levels.
+      # :aliases::  -- Aliases for this option. <b>Note:</b> Thor follows a convention of one-dash-one-letter options. Thus aliases like "-something" wouldn't be parsed; use either "\--something" or "-s" instead.
+      # :type::     -- The type of the argument, can be :string, :hash, :array, :numeric or :boolean.
+      # :banner::   -- String to show on usage notes.
+      # :hide::     -- If you want to hide this option from the help.
       #
       def class_option(name, options={})
         build_option(name, options, class_options)
@@ -450,11 +451,13 @@ class Thor
           padding = options.collect{ |o| o.aliases.size }.max.to_i * 4
 
           options.each do |option|
-            item = [ option.usage(padding) ]
-            item.push(option.description ? "# #{option.description}" : "")
+            unless option.hide
+              item = [ option.usage(padding) ]
+              item.push(option.description ? "# #{option.description}" : "")
 
-            list << item
-            list << [ "", "# Default: #{option.default}" ] if option.show_default?
+              list << item
+              list << [ "", "# Default: #{option.default}" ] if option.show_default?
+            end
           end
 
           shell.say(group_name ? "#{group_name} options:" : "Options:")
@@ -476,7 +479,7 @@ class Thor
         def build_option(name, options, scope) #:nodoc:
           scope[name] = Thor::Option.new(name, options[:desc], options[:required],
                                                options[:type], options[:default], options[:banner],
-                                               options[:lazy_default], options[:group], options[:aliases])
+                                               options[:lazy_default], options[:group], options[:aliases], options[:hide])
         end
 
         # Receives a hash of options, parse them and add to the scope. This is a
