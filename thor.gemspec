@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ['CHANGELOG.rdoc', 'LICENSE.md', 'README.md', 'Thorfile']
   s.files = `git ls-files`.split("\n")
   s.homepage = 'http://github.com/wycats/thor'
-  s.name = 'thor'
+  s.name = 'wijet-thor'
   s.rdoc_options = ['--charset=UTF-8']
   s.require_paths = ['lib']
   s.required_rubygems_version = Gem::Requirement.new('>= 1.3.6')
