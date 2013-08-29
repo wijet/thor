@@ -4,7 +4,7 @@ require File.expand_path('../lib/thor/version', __FILE__)
 extra_rdoc_files = ['CHANGELOG.rdoc', 'LICENSE', 'README.md', 'Thorfile']
 
 Gem::Specification.new do |s|
-  s.name = 'thor'
+  s.name = 'wijet-thor'
   s.version = Thor::VERSION.dup
   s.required_rubygems_version = Gem::Requirement.new(">= 1.3.6") if s.respond_to? :required_rubygems_version=
   s.authors = ['Yehuda Katz', 'José Valim']
